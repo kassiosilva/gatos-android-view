@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Gatos</string>
-    <string name="main_title">Galeria curada</string>
-    <string name="main_subtitle">Uma seleção editorial da elegância felina.</string>
+    <string name="lcs_title">Galeria curada</string>
+    <string name="lcs_subtitle">Uma seleção editorial da elegância felina.</string>
+    <string name="lce_title">Ops! Algo deu errado.</string>
+    <string name="lce_subtitle">Não foi possível carregar as\n imagens. Tente novamente mais\n tarde.</string>
+    <string name="lce_btn_retry">Tentar Novamente</string>
     <string name="item_cat_cd">Imagem Gato</string>
 </resources>

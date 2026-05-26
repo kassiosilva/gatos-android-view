@@ -4,6 +4,7 @@
     <color name="text">#65655D</color>
     <color name="button">#6C5C90</color>
     <color name="background">#FCFFDC</color>
+    <color name="cardBackground">#F6F4EB</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
