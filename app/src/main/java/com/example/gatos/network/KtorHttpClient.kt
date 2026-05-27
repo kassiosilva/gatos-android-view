@@ -1,0 +1,31 @@
+package com.example.gatos.network
+
+import android.util.Log
+import com.example.gatos.network.model.Cat
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.engine.android.Android
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.get
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.runBlocking
+
+object KtorHttpClient {
+    private const val BASE_URL = "https://api.thecatapi.com/v1/images/search?limit=20&mime_types=png&size=med"
+
+    val client = HttpClient(Android) {
+        install(Logging)
+        install(ContentNegotiation) {
+            json()
+        }
+    }
+
+    init {
+        val result: List<Cat> = runBlocking {
+            client.get(BASE_URL).body()
+        }
+
+        Log.d("KtorHttpClient", result.toString())
+    }
+}
