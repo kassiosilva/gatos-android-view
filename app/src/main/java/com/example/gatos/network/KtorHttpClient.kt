@@ -21,11 +21,11 @@ object KtorHttpClient {
         }
     }
 
-    init {
-        val result: List<Cat> = runBlocking {
-            client.get(BASE_URL).body()
+    private suspend inline fun <reified T> requireGet(url: String): Result<T> {
+        return try {
+            Result.success(client.get(url).body())
+        } catch (e: Exception) {
+            Result.failure(e)
         }
-
-        Log.d("KtorHttpClient", result.toString())
     }
-}
+ }
