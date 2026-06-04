@@ -1,13 +1,19 @@
 package com.example.gatos
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.gatos.network.KtorHttpClient
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+    private val viewModel by viewModels<CatsViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -18,6 +24,14 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val ktorHttpClient = KtorHttpClient
+        lifecycleScope.launch {
+            viewModel.cats.collect { result ->
+                result.onSuccess {
+                    Log.d("Cats", it.toString())
+                }.onFailure {
+                    Log.d("Cats", it.message ?: "Error")
+                }
+            }
+        }
     }
 }
