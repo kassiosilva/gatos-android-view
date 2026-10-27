@@ -23,17 +23,18 @@
         android:id="@+id/l_main_lcs"
         layout="@layout/content_list_cats_success"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_main_logo" />
 
     <include
-        android:visibility="gone"
         android:id="@+id/l_main_lce"
         layout="@layout/content_list_cats_error"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -3,6 +3,7 @@ package com.example.gatos.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil3.load
 import com.example.gatos.R
 import com.example.gatos.databinding.ItemCatBinding
 import com.example.gatos.network.model.Cat
@@ -33,7 +34,7 @@ class CatsAdapter(private val catsList: List<Cat>) :
 
         fun bind(cats: Cat) {
             with(binding) {
-                ivItemCat.setImageResource(R.drawable.img_cat)
+                ivItemCat.load(cats.url)
             }
         }
 
