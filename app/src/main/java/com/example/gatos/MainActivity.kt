@@ -34,6 +34,11 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getCats()
 
+        binding.lMainLce.btnLceRetry.setOnClickListener {
+            binding.showContentLoading()
+            viewModel.getCats()
+        }
+
         lifecycleScope.launch {
             viewModel.cats.collectLatest { result ->
                 result.onSuccess { cats ->
@@ -48,6 +53,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun ActivityMainBinding.showContentLoading() {
+        pbMainLoading.visibility = View.VISIBLE
+        lMainLcs.root.visibility = View.GONE
+        lMainLce.root.visibility = View.GONE
     }
 
     private fun ActivityMainBinding.showContentSuccess() {
