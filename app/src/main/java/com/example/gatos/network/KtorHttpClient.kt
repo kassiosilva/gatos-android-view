@@ -11,7 +11,8 @@ import io.ktor.serialization.kotlinx.json.json
 
 object KtorHttpClient {
 
-    private const val BASE_URL = "https://api.thecatapi.com/v1/images/search?limit=20&mime_types=png&size=med"
+    private const val BASE_URL =
+        "https://api.thecatapi.com/v1/images/search?limit=20&mime_types=png&size=med"
 
     val client = HttpClient(Android) {
         install(Logging)
@@ -26,9 +27,10 @@ object KtorHttpClient {
 
     private suspend inline fun <reified T> requireGet(url: String): Result<T> {
         return try {
+
             Result.success(client.get(url).body())
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
- }
+}

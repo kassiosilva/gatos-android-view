@@ -13,9 +13,9 @@ class CatsViewModel: ViewModel() {
     private val _cats = MutableStateFlow<Result<List<Cat>>>(Result.success(emptyList()))
     val cats: StateFlow<Result<List<Cat>>> = _cats.asStateFlow()
 
-    init {
+    fun getCats() {
         viewModelScope.launch {
-            _cats.value = KtorHttpClient.getCats()
+            _cats.emit(KtorHttpClient.getCats())
         }
     }
 }

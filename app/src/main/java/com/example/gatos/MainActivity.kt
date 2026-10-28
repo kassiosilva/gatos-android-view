@@ -1,7 +1,7 @@
 package com.example.gatos
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +9,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.gatos.databinding.ActivityMainBinding
+import com.example.gatos.network.model.Cat
 import com.example.gatos.ui.CatsAdapter
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -30,16 +32,34 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        viewModel.getCats()
+
         lifecycleScope.launch {
-            viewModel.cats.collect { result ->
+            viewModel.cats.collectLatest { result ->
                 result.onSuccess { cats ->
+                    if (cats == emptyList<Cat>()) {
+                        return@collectLatest
+                    }
+
+                    binding.showContentSuccess()
                     binding.lMainLcs.rvLcsCats.adapter = CatsAdapter(cats)
                 }.onFailure {
-                    Log.d("Cats", it.message ?: "Error")
+                    binding.showContentError()
                 }
             }
         }
     }
 
+    private fun ActivityMainBinding.showContentSuccess() {
+        pbMainLoading.visibility = View.GONE
+        lMainLcs.root.visibility = View.VISIBLE
+        lMainLce.root.visibility = View.GONE
+    }
+
+    private fun ActivityMainBinding.showContentError() {
+        pbMainLoading.visibility = View.GONE
+        lMainLcs.root.visibility = View.GONE
+        lMainLce.root.visibility = View.VISIBLE
+    }
 
 }
