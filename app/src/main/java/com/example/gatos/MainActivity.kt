@@ -34,22 +34,34 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getCats()
 
-        binding.lMainLce.btnLceRetry.setOnClickListener {
-            binding.showContentLoading()
-            viewModel.getCats()
-        }
+        with(binding) {
+            lMainLcs.srlLcs.apply {
+                setOnRefreshListener {
+                    viewModel.getCats()
+                }
 
-        lifecycleScope.launch {
-            viewModel.cats.collectLatest { result ->
-                result.onSuccess { cats ->
-                    if (cats == emptyList<Cat>()) {
-                        return@collectLatest
+                setColorSchemeResources(
+                    R.color.button
+                )
+            }
+
+            lMainLce.btnLceRetry.setOnClickListener {
+                showContentLoading()
+                viewModel.getCats()
+            }
+
+            lifecycleScope.launch {
+                viewModel.cats.collectLatest { result ->
+                    result.onSuccess { cats ->
+                        if (cats.isNotEmpty()) {
+                            showContentSuccess()
+                            lMainLcs.rvLcsCats.adapter = CatsAdapter(cats)
+                        }
+                    }.onFailure {
+                        showContentError()
                     }
 
-                    binding.showContentSuccess()
-                    binding.lMainLcs.rvLcsCats.adapter = CatsAdapter(cats)
-                }.onFailure {
-                    binding.showContentError()
+                    lMainLcs.srlLcs.isRefreshing = false
                 }
             }
         }
