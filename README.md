@@ -78,7 +78,7 @@ GET https://api.thecatapi.com/v1/images/search?limit=20&mime_types=png&size=med
 
 A requisição solicita até 20 imagens PNG de tamanho médio. O modelo `Cat` representa os campos `id`, `url`, `width` e `height` da resposta. A implementação atual envia a requisição sem chave de API.
 
-A pasta `bruno/` contém uma coleção para explorar a requisição no Bruno.
+A pasta `bruno/` contém uma coleção para explorar a requisição no [Bruno](https://www.usebruno.com/).
 
 ## Organização do código
 
