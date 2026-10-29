@@ -1,0 +1,26 @@
+info:
+  name: listar_gatos
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: https://api.thecatapi.com/v1/images/search?limit=20&mime_types=png&size=med
+  params:
+    - name: limit
+      value: "20"
+      type: query
+    - name: mime_types
+      value: png
+      type: query
+    - name: size
+      value: med
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
